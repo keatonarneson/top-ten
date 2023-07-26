@@ -4,7 +4,80 @@ import { createContext, useContext, useState } from 'react';
 
 const GlobalContext = createContext({});
 
-const data = [
+const answerData = [
+    {
+        rank: 1,
+        playerName: 'mark mcgwire',
+        value: 'mark mcgwire',
+        team: 'STL',
+        stat: 70,
+    },
+    {
+        rank: 2,
+        playerName: 'sammy sosa',
+        value: 'sammy sosa',
+        team: 'CHC',
+        stat: 66,
+    },
+    {
+        rank: 3,
+        playerName: 'ken griffey jr.',
+        value: 'ken griffey jr.',
+        team: 'SEA',
+        stat: 56,
+    },
+    {
+        rank: 4,
+        playerName: 'greg vaughn',
+        value: 'greg vaughn',
+        team: 'SDP',
+        stat: 50,
+    },
+    {
+        rank: 5,
+        playerName: 'albert belle',
+        value: 'albert belle',
+        team: 'CHW',
+        stat: 49,
+    },
+    {
+        rank: 6,
+        playerName: 'vinny castilla',
+        value: 'vinny castilla',
+        team: 'COL',
+        stat: 46,
+    },
+    {
+        rank: 7,
+        playerName: 'jose canseco',
+        value: 'jose canseco',
+        team: 'TOR',
+        stat: 46,
+    },
+    {
+        rank: 8,
+        playerName: 'manny ramirez',
+        value: 'manny ramirez',
+        team: 'CLE',
+        stat: 45,
+    },
+    {
+        rank: 9,
+        playerName: 'juan gonzalez',
+        value: 'juan gonzalez',
+        team: 'TEX',
+        stat: 45,
+    },
+    {
+        rank: 10,
+        playerName: 'andres galarraga',
+        value: 'andres galarraga',
+        team: 'ATL',
+        stat: 44,
+    },
+];
+
+const userData = [
     {
         rank: 1,
         playerName: '',
@@ -12,7 +85,8 @@ const data = [
         team: 'STL',
         roundOne: false,
         roundTwo: false,
-        stat: 70,
+        userStat: null,
+        stat: null,
     },
     {
         rank: 2,
@@ -21,7 +95,8 @@ const data = [
         team: 'CHC',
         roundOne: false,
         roundTwo: false,
-        stat: 66,
+        userStat: null,
+        stat: null,
     },
     {
         rank: 3,
@@ -30,7 +105,8 @@ const data = [
         team: 'SEA',
         roundOne: false,
         roundTwo: false,
-        stat: 56,
+        userStat: null,
+        stat: null,
     },
     {
         rank: 4,
@@ -39,7 +115,8 @@ const data = [
         team: 'SDP',
         roundOne: false,
         roundTwo: false,
-        stat: 50,
+        userStat: null,
+        stat: null,
     },
     {
         rank: 5,
@@ -48,7 +125,8 @@ const data = [
         team: 'CHW',
         roundOne: false,
         roundTwo: false,
-        stat: 49,
+        userStat: null,
+        stat: null,
     },
     {
         rank: 6,
@@ -57,7 +135,8 @@ const data = [
         team: 'COL',
         roundOne: false,
         roundTwo: false,
-        stat: 46,
+        userStat: null,
+        stat: null,
     },
     {
         rank: 7,
@@ -66,7 +145,8 @@ const data = [
         team: 'TOR',
         roundOne: false,
         roundTwo: false,
-        stat: 46,
+        userStat: null,
+        stat: null,
     },
     {
         rank: 8,
@@ -75,7 +155,8 @@ const data = [
         team: 'CLE',
         roundOne: false,
         roundTwo: false,
-        stat: 45,
+        userStat: null,
+        stat: null,
     },
     {
         rank: 9,
@@ -84,7 +165,8 @@ const data = [
         team: 'TEX',
         roundOne: false,
         roundTwo: false,
-        stat: 45,
+        userStat: null,
+        stat: null,
     },
     {
         rank: 10,
@@ -93,14 +175,16 @@ const data = [
         team: 'ATL',
         roundOne: false,
         roundTwo: false,
-        stat: 44,
+        userStat: null,
+        stat: null,
     },
 ];
 
 export const GlobalContextProvider = ({ children }) => {
     const [round, setRound] = useState(1);
     const [guesses, setGuesses] = useState(10);
-    const [tableData, setTableData] = useState(data);
+    const [answers, setAnswers] = useState(answerData);
+    const [userTableData, setUserTableData] = useState(userData);
 
     return (
         <GlobalContext.Provider
@@ -109,8 +193,9 @@ export const GlobalContextProvider = ({ children }) => {
                 setRound,
                 guesses,
                 setGuesses,
-                tableData,
-                setTableData,
+                answers,
+                userTableData,
+                setUserTableData,
             }}
         >
             {children}

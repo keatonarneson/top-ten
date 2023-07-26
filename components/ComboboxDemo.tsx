@@ -107,7 +107,8 @@ export function ComboboxDemo() {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState('');
 
-    const { tableData, setTableData, setGuesses, round } = useGlobalContext();
+    const { userTableData, setUserTableData, setGuesses, round } =
+        useGlobalContext();
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
@@ -141,7 +142,7 @@ export function ComboboxDemo() {
                                     setOpen(false);
 
                                     // refactor
-                                    const newTable = tableData.map(row => {
+                                    const newTable = userTableData.map(row => {
                                         if (round === 1) {
                                             if (row.value === currentValue) {
                                                 return {
@@ -165,7 +166,8 @@ export function ComboboxDemo() {
                                         return row;
                                     });
 
-                                    setTableData(newTable);
+                                    setUserTableData(newTable);
+
                                     setGuesses(guesses => guesses - 1);
                                 }}
                             >

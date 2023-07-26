@@ -5,7 +5,15 @@ import TableDemo from '@/components/TableDemo';
 import { ComboboxDemo } from '@/components/ComboboxDemo';
 
 export default function Home() {
-    const { round, setRound, guesses, setGuesses } = useGlobalContext();
+    const {
+        round,
+        setRound,
+        guesses,
+        setGuesses,
+        userTableData,
+        setUserTableData,
+        answers,
+    } = useGlobalContext();
 
     if (guesses === 0 && round === 1) {
         setGuesses(10);
@@ -15,6 +23,13 @@ export default function Home() {
     if (guesses === 0 && round === 2) {
         setGuesses(10);
         setRound(3);
+    }
+
+    if (round === 3) {
+        userTableData.map(a => {
+            const exists = answers.find(b => a.value == b.value);
+            return exists ? ((a.playerName = exists.playerName), a) : a;
+        });
     }
 
     return (
