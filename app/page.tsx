@@ -33,7 +33,7 @@ export default function Home() {
     }
 
     return (
-        <div className="container flex flex-col items-center gap-5 mt-10 max-w-sm">
+        <div className="container flex flex-col items-center gap-5 mt-10 max-w-xl">
             <h1 className="font-bold text-3xl">1998 HR Leaders</h1>
             <ComboboxDemo />
             <h3 className="text-xl font-bold">Round: {round}</h3>
