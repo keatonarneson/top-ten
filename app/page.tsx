@@ -3,6 +3,7 @@
 import { useGlobalContext } from '@/context/global';
 import TableDemo from '@/components/TableDemo';
 import { ComboboxDemo } from '@/components/ComboboxDemo';
+import SummaryTable from '@/components/SummaryTable';
 
 export default function Home() {
     const {
@@ -33,14 +34,22 @@ export default function Home() {
     }
 
     return (
-        <div className="container flex flex-col items-center gap-5 mt-10 max-w-xl">
+        <div className="container flex flex-col items-center gap-5 mt-10 max-w-5xl">
             <h1 className="font-bold text-3xl">1998 HR Leaders</h1>
-            <ComboboxDemo />
-            <h3 className="text-xl font-bold">Round: {round}</h3>
-            <h3 className="text-xl text-red-500 font-bold">
-                Guesses remaining: {guesses}
-            </h3>
-            <TableDemo />
+            {round === 1 || round === 2 ? (
+                <>
+                    <ComboboxDemo />
+                    <h3 className="text-xl font-bold">Round: {round}</h3>
+                    <h3 className="text-xl text-red-500 font-bold">
+                        Guesses remaining: {guesses}
+                    </h3>
+                </>
+            ) : (
+                ''
+            )}
+
+            {round !== 4 && <TableDemo />}
+            {round === 4 && <SummaryTable />}
         </div>
     );
 }

@@ -53,30 +53,29 @@ type ProfileFormValues = z.infer<typeof FormSchema>;
 // };
 
 const TableDemo = () => {
-    const { round, userTableData, setUserTableData } = useGlobalContext();
+    const { round, userTableData, setUserTableData, setRound } =
+        useGlobalContext();
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
     });
-
-    // const { fields, append } = useFieldArray({
-    //     name: 'stats',
-    //     control: form.control,
-    // });
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
         console.log(data);
     }
 
     function handleClick(values) {
-        console.log(values);
-
         userTableData.map((player, i) => {
-            console.log(values[`userStat-rank-${i}`]);
             return (player.userStat = +values[`userStat-rank-${i}`]);
         });
 
-        console.log(userTableData);
+        userTableData.map(player => {
+            return (player.score =
+                player.mult * Math.abs(player.stat - player.userStat));
+        });
+
+        // setUserTableData(updatedTable);
+        setRound(4);
     }
 
     return (
@@ -88,7 +87,7 @@ const TableDemo = () => {
                     className="w-2/3 space-y-6"
                 >
                     <Table>
-                        <TableCaption>1998 HR Leaders</TableCaption>
+                        {/* <TableCaption>1998 HR Leaders</TableCaption> */}
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-[100px]">
@@ -96,7 +95,11 @@ const TableDemo = () => {
                                 </TableHead>
                                 {round !== 1 && <TableHead>Team</TableHead>}
                                 <TableHead>Player Name</TableHead>
-                                {round === 3 && <TableHead>HR</TableHead>}
+                                {round !== 1 && round !== 2 ? (
+                                    <TableHead>HR</TableHead>
+                                ) : (
+                                    ''
+                                )}
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -132,18 +135,6 @@ const TableDemo = () => {
                                                             <Input
                                                                 placeholder="#"
                                                                 {...field}
-                                                                // {...form.register(
-                                                                //     `userStat-rank-${
-                                                                //         i + 1
-                                                                //     }`
-                                                                // )}
-                                                                // onChange={e =>
-                                                                //     form.setValue(
-                                                                //         `userStat-${i}`,
-                                                                //         e.target
-                                                                //             .value
-                                                                //     )
-                                                                // }
                                                             />
                                                         </FormControl>
                                                     </FormItem>
@@ -156,15 +147,17 @@ const TableDemo = () => {
                             ))}
                         </TableBody>
                     </Table>
-                    <Button
-                        type="submit"
-                        form="stats"
-                        onClick={() => handleClick(form.getValues())}
-                    >
-                        Submit
-                    </Button>
                 </form>
             </Form>
+            {round === 3 && (
+                <Button
+                    type="submit"
+                    form="stats"
+                    onClick={() => handleClick(form.getValues())}
+                >
+                    Submit
+                </Button>
+            )}
         </>
     );
 };

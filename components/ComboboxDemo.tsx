@@ -149,6 +149,7 @@ export function ComboboxDemo() {
                                                     ...row,
                                                     playerName: currentValue,
                                                     roundOne: true,
+                                                    mult: 0.5,
                                                 };
                                             }
                                         }
@@ -159,6 +160,7 @@ export function ComboboxDemo() {
                                                     ...row,
                                                     playerName: currentValue,
                                                     roundTwo: true,
+                                                    mult: 1,
                                                 };
                                             }
                                         }
