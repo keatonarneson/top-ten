@@ -105,8 +105,8 @@ const players = [
 ];
 
 export function ComboboxDemo() {
-    const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState('');
+    const [open, setOpen] = React.useState<boolean>(false);
+    const [value, setValue] = React.useState<string>('');
 
     const { userTableData, setUserTableData, setGuesses, round } =
         useGlobalContext();
@@ -121,7 +121,8 @@ export function ComboboxDemo() {
                     className="w-[200px] justify-between"
                 >
                     {value
-                        ? players.find(player => player.value === value)?.label
+                        ? players.find(player => player.value === value)
+                              ?.label ?? 'Select player..'
                         : 'Select player...'}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -134,7 +135,7 @@ export function ComboboxDemo() {
                         {players.map(player => (
                             <CommandItem
                                 key={player.value}
-                                onSelect={currentValue => {
+                                onSelect={(currentValue: string) => {
                                     setValue(
                                         currentValue === value
                                             ? ''

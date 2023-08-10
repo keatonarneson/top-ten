@@ -1,9 +1,7 @@
 'use client';
-// @ts-nocheck
 
 import { createContext, useContext, useState } from 'react';
-
-const GlobalContext = createContext({});
+import type { ReactNode } from 'react';
 
 const answerData = [
     {
@@ -201,11 +199,51 @@ const userData = [
     },
 ];
 
-export const GlobalContextProvider = ({ children }) => {
-    const [round, setRound] = useState(1);
-    const [guesses, setGuesses] = useState(10);
-    const [answers, setAnswers] = useState(answerData);
-    const [userTableData, setUserTableData] = useState(userData);
+type GlobalContextProviderProps = {
+    children: ReactNode;
+};
+
+type Answers = {
+    rank: number;
+    playerName: string;
+    value: string;
+    team: string;
+    stat: number;
+};
+
+type UserData = {
+    rank: number;
+    playerName: string;
+    value: string;
+    team: string;
+    roundOne: boolean;
+    roundTwo: boolean;
+    userStat: number | null;
+    stat: number;
+    // mult: 1 | 0.5 | 2;
+    mult: number;
+    score: number;
+};
+
+type GlobalContext = {
+    round: number;
+    setRound: React.Dispatch<React.SetStateAction<number>>;
+    guesses: number;
+    setGuesses: React.Dispatch<React.SetStateAction<number>>;
+    answers: Answers[];
+    userTableData: UserData[];
+    setUserTableData: React.Dispatch<React.SetStateAction<UserData[]>>;
+};
+
+const GlobalContext = createContext<GlobalContext | null>(null);
+
+export const GlobalContextProvider = ({
+    children,
+}: GlobalContextProviderProps) => {
+    const [round, setRound] = useState<number>(1);
+    const [guesses, setGuesses] = useState<number>(10);
+    const [answers, setAnswers] = useState<Answers[]>(answerData);
+    const [userTableData, setUserTableData] = useState<UserData[]>(userData);
 
     return (
         <GlobalContext.Provider
